@@ -1,0 +1,5 @@
+server:
+  servlet:
+    contextPath: /cloudcompilerr-api/v1/
+  port: 8020  
+  
