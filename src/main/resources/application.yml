@@ -6,3 +6,13 @@ cloudcompilerr:
   scheduler:
     cron: 0 51 22 1/1 * ?
     zone: GMT+5:30
+logging:
+  level:
+    root: INFO
+    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
+    com.cloudcompilerr: DEBUG
+  file: logs/application-debug.log
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+    file: "%d %-5level [%thread] %logger : %msg%n"
+    level:      
