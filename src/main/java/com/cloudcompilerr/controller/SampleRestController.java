@@ -1,6 +1,5 @@
 package com.cloudcompilerr.controller;
 
-import org.jboss.logging.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -34,11 +33,10 @@ public class SampleRestController {
     @ResponseStatus(HttpStatus.OK)
     public String invokeScheduler(
 	    @ApiParam(name = "id", defaultValue = "1", required = false) @PathVariable("id") int id) {
+	Logger.info("Thread in invokeScheduler before calling scheduler method  is {}", Thread.currentThread().getName());
 	cloudCompilerrScheduler.scheduleJob();
-	MDC.put("Method_Name", "invokeScheduler");
 	Logger.info("inside rest controller");
-	MDC.getMap().entrySet().stream()
-		.forEach(entry -> Logger.info("key {} , value {} from MDC map ", entry.getKey(), entry.getValue()));
+	Logger.info("Thread in invokeScheduler after calling scheduler method is {}", Thread.currentThread().getName());
 	return "Triggered successfully";
     }
 

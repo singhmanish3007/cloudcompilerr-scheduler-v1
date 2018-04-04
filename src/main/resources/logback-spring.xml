@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 	<include resource="org/springframework/boot/logging/logback/base.xml" />
-	<property name="logPattern" value="%X{Method_Name}, [%thread], %d %-5level %logger{35} - %msg%n" />
+	<!--  <property name="logPattern" value="%X{loggingFilter}, [%thread], %d %-5level %logger{35} - %msg%n" />-->
+	<property name="logPattern" value="[%thread], %d %-5level %logger{35} - %msg%n" />
 	<property name="logEncoding" value="UTF-8" />
 	<property name="logDirectory" value="logs" />
 	

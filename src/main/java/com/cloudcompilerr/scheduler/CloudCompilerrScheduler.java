@@ -4,6 +4,7 @@ import java.util.Calendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -26,9 +27,11 @@ public class CloudCompilerrScheduler {
     }
 
     @Scheduled(cron = "${cloudcompilerr.scheduler.cron}", zone = "${cloudcompilerr.scheduler.zone}")
+    @Async
     public void scheduleJob() {
 	Logger.info("inside scheduled job at {}", Calendar.getInstance().getTime());
 	Logger.info("time zone is {}", schedulerProps.getZone());
+	Logger.info("Thread in scheduleJob is is {}", Thread.currentThread().getName());
     }
 
 }
