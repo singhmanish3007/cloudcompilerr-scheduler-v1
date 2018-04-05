@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-	<include resource="org/springframework/boot/logging/logback/base.xml" />
-	<!--  <property name="logPattern" value="%X{loggingFilter}, [%thread], %d %-5level %logger{35} - %msg%n" />-->
-	<property name="logPattern" value="[%thread], %d %-5level %logger{35} - %msg%n" />
+	<include
+		resource="org/springframework/boot/logging/logback/base.xml" />
+	<!-- <property name="logPattern" value="%X{loggingFilter}, [%thread], %d 
+		%-5level %logger{35} - %msg%n" /> -->
+	<property name="logPattern"
+		value="[%thread], %d %-5level %logger{35} - %msg%n %X{X-Api-Id} - %X{api-client-ip}" />
 	<property name="logEncoding" value="UTF-8" />
 	<property name="logDirectory" value="logs" />
-	
+
 
 	<appender name="fileAppender"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<fileNamePattern>${logDirectory}/CloudCompilerrScheduler_%d{yyyy-MM-dd}.%i.log
 			</fileNamePattern>
 			<timeBasedFileNamingAndTriggeringPolicy
@@ -22,14 +26,25 @@
 			<pattern>${logPattern}</pattern>
 		</encoder>
 	</appender>
+	<appender name="CONSOLE"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<charset>${logEncoding}</charset>
+			<pattern>${logPattern}</pattern>
+		</encoder>
+	</appender>
 
-	<logger name="org.springframework.web.filter.CommonsRequestLoggingFilter" level="DEBUG" />
+	<logger
+		name="org.springframework.web.filter.CommonsRequestLoggingFilter"
+		level="DEBUG" />
 
 	<root level="INFO">
 		<appender-ref ref="fileAppender" />
+		<appender-ref ref="CONSOLE" />
 	</root>
 	<springProfile name="dev,ppe,it,default">
-		<logger name="com.management.user" level="DEBUG" additivity="false">
+		<logger name="com.cloudcompilerr" level="DEBUG"
+			additivity="false">
 			<appender-ref ref="CONSOLE" />
 			<appender-ref ref="fileAppender" />
 		</logger>
