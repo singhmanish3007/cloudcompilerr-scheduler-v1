@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.cloudcompilerr.annotation.Traceable;
 import com.cloudcompilerr.config.SchedulerProps;
 
 import lombok.extern.slf4j.Slf4j;
@@ -19,19 +20,22 @@ import lombok.extern.slf4j.Slf4j;
 @EnableConfigurationProperties(SchedulerProps.class)
 public class CloudCompilerrScheduler {
 
-    private final SchedulerProps schedulerProps;
+	private final SchedulerProps schedulerProps;
 
-    @Autowired
-    public CloudCompilerrScheduler(SchedulerProps schedulerProps) {
-	this.schedulerProps = schedulerProps;
-    }
+	@Autowired
+	public CloudCompilerrScheduler(SchedulerProps schedulerProps) {
+		this.schedulerProps = schedulerProps;
+	}
 
-    @Scheduled(cron = "${cloudcompilerr.scheduler.cron}", zone = "${cloudcompilerr.scheduler.zone}")
-    @Async
-    public void scheduleJob() {
-	Logger.info("inside scheduled job at {}", Calendar.getInstance().getTime());
-	Logger.info("time zone is {}", schedulerProps.getZone());
-	Logger.info("Thread in scheduleJob is is {}", Thread.currentThread().getName());
-    }
+	@Scheduled(cron = "${cloudcompilerr.scheduler.cron}", zone = "${cloudcompilerr.scheduler.zone}")
+	@Async
+	@Traceable
+	public void scheduleJob() {
+		Logger.info("inside scheduled job at {}",
+				Calendar.getInstance().getTime());
+		Logger.info("time zone is {}", schedulerProps.getZone());
+		Logger.info("Thread in scheduleJob is is {}",
+				Thread.currentThread().getName());
+	}
 
 }

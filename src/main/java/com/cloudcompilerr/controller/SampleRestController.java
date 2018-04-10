@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cloudcompilerr.annotation.Traceable;
 import com.cloudcompilerr.controller.error.CloudCompilerrErrorResponse;
 import com.cloudcompilerr.scheduler.CloudCompilerrScheduler;
 
@@ -77,6 +78,7 @@ public class SampleRestController {
 	@ResponseStatus(code = HttpStatus.OK)
 
 	@GetMapping(value = "/calljob/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@Traceable
 	public String invokeScheduler(
 			@ApiParam(name = "id", defaultValue = "1", required = false) @PathVariable("id") int id) {
 		Logger.info(
